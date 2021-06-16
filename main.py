@@ -99,7 +99,7 @@ def main():
     # )
     trainer.scheduler = optim.lr_scheduler.ReduceLROnPlateau(
         trainer.optimizer,
-        factor=0.25,
+        factor=0.5,
         patience=2
     )
 
