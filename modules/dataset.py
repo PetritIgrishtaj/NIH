@@ -55,7 +55,7 @@ class ChestXRayImages():
         _data = self._preprocess_data(_data)
 
         _test_files = pd.read_csv(
-            os.path.join(root, self.rel_test_list),
+            os.path.join(root, 'test_list_NIH.txt'),
             header=None,
             squeeze=True
         )
