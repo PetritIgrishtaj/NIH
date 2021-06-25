@@ -144,7 +144,7 @@ def val_epoch(
     # metric scenes
     roc_auc = get_roc_auc_score(gt, probs, labels)
 
-    return val_loss_list, running_val_loss/float(len(loader.dataset)), roc_auc, roc_auc_scores
+    return val_loss_list, running_val_loss/float(len(loader.dataset)), roc_auc
 
 def run(device: str,
         model: Module,
