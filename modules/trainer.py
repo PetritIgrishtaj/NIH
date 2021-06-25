@@ -160,8 +160,7 @@ def run(device: str,
         model_dir: str,
         stage: str):
     
-    try:
-        print(self.optimizer.state)
+
 
     # Create directory where the models will be stored
     if not os.path.exists(model_dir):
@@ -170,7 +169,8 @@ def run(device: str,
     model.to(device)
     criterion_t.to(device)
     criterion_v.to(device)
-
+    
+    
     for epoch in range(1, epochs+1):
         print('-'*55)
         print('TRAIN')
