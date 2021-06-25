@@ -83,10 +83,9 @@ def main():
     ))
 
     # Setting the training variables
-    # trainer.criterion_t = nn.BCEWithLogitsLoss()
-    # trainer.criterion_v = nn.BCEWithLogitsLoss()
-    trainer.criterion_t = loss.BPMLLLoss()
-    trainer.criterion_v = loss.BPMLLLoss()
+    trainer.criterion_t = nn.BCEWithLogitsLoss()
+    trainer.criterion_v = nn.BCEWithLogitsLoss()
+    
     trainer.optimizer  = optim.Adam(
         filter(lambda p: p.requires_grad, model.parameters()),
         lr = args.lr
