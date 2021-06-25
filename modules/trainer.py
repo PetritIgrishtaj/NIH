@@ -17,7 +17,7 @@ criterion_t: _Loss      = None
 criterion_v: _Loss      = None
 optimizer: Optimizer    = None
 scheduler: ReduceLROnPlateau = None
-
+scheduler2: ReduceLROnPlateau = None
 
 def get_roc_auc_score(y_true, y_probs, labels):
     class_roc_auc_list = dict()
@@ -182,7 +182,7 @@ def run(device: str,
         print('-'*55)
         print('VAL')
         print('-'*55)
-        _, avg_loss, roc = val_epoch(device          = device,
+        val_loss, avg_loss, roc = val_epoch(device          = device,
                                      loader          = val_loader,
                                      model           = model,
                                      labels          = labels,
@@ -191,9 +191,11 @@ def run(device: str,
                                      log_interval    = log_interval)
         print('ROC_AUC_SCORE: {}'.format(roc))
         print('AVG Loss in validation set: {}'.format(avg_loss))
+        print(val_loss)
 
         # when using ReduceLROnPlateau
         scheduler.step(avg_loss)
+        scheduler2.step(sum(list(roc.values())))
 
         # when using scheduler unaware of loss
         # scheduler.step()
