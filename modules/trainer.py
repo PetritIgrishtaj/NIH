@@ -159,6 +159,9 @@ def run(device: str,
         labels: List,
         model_dir: str,
         stage: str):
+    
+    try:
+        print(self.optimizer.state)
 
     # Create directory where the models will be stored
     if not os.path.exists(model_dir):
