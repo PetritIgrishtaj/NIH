@@ -18,6 +18,12 @@ criterion_v: _Loss      = None
 optimizer: Optimizer    = None
 scheduler: ReduceLROnPlateau = None
 scheduler2: ReduceLROnPlateau = None
+    
+    
+def get_lr(optimizer):
+    for param_group in optimizer.param_groups:
+        return param_group['lr']
+    
 
 def get_roc_auc_score(y_true, y_probs, labels):
     class_roc_auc_list = dict()
@@ -51,7 +57,9 @@ def train_epoch(
 
     running_train_loss = 0
     train_loss_list = []
-
+    
+    print(get_lr(optimizer))
+    
     start_time = time.time()
     for batch_idx, (img, target) in enumerate(loader):
 
