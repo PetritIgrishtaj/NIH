@@ -7,7 +7,7 @@ import torch
 from sklearn.metrics import roc_auc_score
 from torch.nn import Module
 from torch.nn.modules.loss import _Loss
-from torch.optim.lr_scheduler import _LRScheduler
+from torch.optim.lr_scheduler import ReduceLROnPlateau
 from torch.optim.optimizer import Optimizer
 from torch.utils.data import DataLoader
 from typing import Callable
@@ -16,21 +16,24 @@ from .loss import hamming_loss
 criterion_t: _Loss      = None
 criterion_v: _Loss      = None
 optimizer: Optimizer    = None
-scheduler: _LRScheduler = None
+scheduler: ReduceLROnPlateau = None
+scheduler2: ReduceLROnPlateau = None
 
 
 def get_roc_auc_score(y_true, y_probs, labels):
     class_roc_auc_list = dict()
+    roc_auc_scores = []
 
     for i in range(y_true.shape[-1]):
         try:
             class_roc_auc = roc_auc_score(y_true[:, i], y_probs[:, i])
             class_roc_auc_list[labels[i]] = class_roc_auc
+            roc_auc_scores.append(class_roc_auc)
         except:
             class_roc_auc_list[labels[i]] = None
 
 
-    return class_roc_auc_list
+    return class_roc_auc_list, roc_auc_scores
 
 
 def train_epoch(
@@ -142,9 +145,9 @@ def val_epoch(
             batch_start_time = time.time()
 
     # metric scenes
-    roc_auc = get_roc_auc_score(gt, probs, labels)
+    roc_auc,roc_auc_scores = get_roc_auc_score(gt, probs, labels)
 
-    return val_loss_list, running_val_loss/float(len(loader.dataset)), roc_auc
+    return val_loss_list, running_val_loss/float(len(loader.dataset)), roc_auc, roc_auc_scores
 
 def run(device: str,
         model: Module,
@@ -179,7 +182,7 @@ def run(device: str,
         print('-'*55)
         print('VAL')
         print('-'*55)
-        _, avg_loss, roc = val_epoch(device          = device,
+        _, avg_loss, roc, roc_auc_scores = val_epoch(device          = device,
                                      loader          = val_loader,
                                      model           = model,
                                      labels          = labels,
@@ -191,6 +194,7 @@ def run(device: str,
 
         # when using ReduceLROnPlateau
         scheduler.step(avg_loss)
+        scheduler2.step(sum(roc_auc_scores))
 
         # when using scheduler unaware of loss
         # scheduler.step()
