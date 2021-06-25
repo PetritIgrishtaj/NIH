@@ -26,7 +26,6 @@ def get_roc_auc_score(y_true, y_probs, labels):
         try:
             class_roc_auc = roc_auc_score(y_true[:, i], y_probs[:, i])
             class_roc_auc_list[labels[i]] = class_roc_auc
-            roc_auc_scores.append(class_roc_auc)
         except:
             class_roc_auc_list[labels[i]] = None
 
