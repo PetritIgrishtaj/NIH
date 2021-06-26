@@ -202,7 +202,7 @@ def run(device: str,
         print(val_loss)
 
         # when using ReduceLROnPlateau
-        scheduler.step(avg_loss)
+        #scheduler.step(avg_loss)
         scheduler2.step(sum(list(roc.values())))
 
         # when using scheduler unaware of loss
