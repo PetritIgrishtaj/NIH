@@ -29,6 +29,8 @@ class ChestXRayImages():
         folds: int,
         frac: float = 1,
         seed: int = 0
+        transform: Optional[Callable] = None,
+        target_transform: Optional[Callable] = None,
     ):
         self.transform = transform
         self.target_transform = target_transform
