@@ -10,6 +10,14 @@ from torchvision import transforms
 from modules import net, trainer, loss
 from modules.dataset import ChestXRayImageDataset, ChestXRayImages
 
+def seed_everything(seed: int):
+    os.environ['PYTHONHASHSEED'] = str(seed)
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = True
 
 transform = transforms.Compose([
     # transforms.Resize(224),
@@ -40,6 +48,9 @@ def main():
     parser.add_argument('--seed', type=int, default=0, help='Seed the random generator to get reproducability')
     args = parser.parse_args()
 
+    seed_everything(args.seed)
+
+    
     if args.device == 'cuda':
         device = torch.device("cuda")
     else:
