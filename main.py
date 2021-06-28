@@ -121,7 +121,7 @@ def main():
         trainer.optimizer,
         'max',
         factor=0.75,
-        patience=2
+        patience=3
     )
 
     # Run the training
