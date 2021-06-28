@@ -177,6 +177,7 @@ def run(device: str,
     
     
     for epoch in range(1, epochs+1):
+        torch.cuda.empty_cache()
         print('-'*55)
         print('TRAIN')
         print('-'*55)
