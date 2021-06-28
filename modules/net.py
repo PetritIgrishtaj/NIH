@@ -6,7 +6,7 @@ from efficientnet_pytorch import EfficientNet
 
 def get_model(num_classes):
     #model = models.resnet50(pretrained=True, progress=True)
-    model = EfficientNet.from_pretrained('efficientnet-b7')
+    model = EfficientNet.from_pretrained('efficientnet-b7', include_top=True)
 
     # change the last linear layer
     num_ftrs = model.fc.in_features
