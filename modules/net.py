@@ -5,7 +5,7 @@ from torchvision import datasets, models, transforms
 
 
 def get_model(num_classes):
-    model = models.resnet38(pretrained=True, progress=True)
+    model = models.resnet50(pretrained=True, progress=True)
 
     # change the last linear layer
     num_ftrs = model.fc.in_features
