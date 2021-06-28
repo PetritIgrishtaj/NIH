@@ -30,6 +30,9 @@ class ChestXRayImages():
         frac: float = 1,
         seed: int = 0
     ):
+        self.transform = transform
+        self.target_transform = target_transform
+        
         _data = None
         _test_files = None
         test_filter = None
