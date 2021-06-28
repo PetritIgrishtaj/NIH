@@ -14,7 +14,7 @@ from modules.dataset import ChestXRayImageDataset, ChestXRayImages
 transform = transforms.Compose([
     # transforms.Resize(224),
     transforms.RandomAffine(7),
-    transforms.RandomHorizontalFlip(p=0.25)
+    transforms.RandomHorizontalFlip(p=0.25),
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.485, 0.456, 0.406],
                          std=[0.229, 0.224, 0.225])
