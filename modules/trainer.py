@@ -163,7 +163,8 @@ def run(device: str,
         save_interval: int,
         labels: List,
         model_dir: str,
-        stage: str):
+        stage: str,
+        sched: str):
     
 
 
@@ -205,7 +206,10 @@ def run(device: str,
         # when using ReduceLROnPlateau
         #scheduler.step(avg_loss)
         #scheduler2.step(sum(list(roc.values())))
-        scheduler.step(avg_loss)
+        if sched != 'step':
+            scheduler.step(avg_loss)
+        else:
+            scheduler.step()
         # when using scheduler unaware of loss
         # scheduler.step()
 
