@@ -38,6 +38,7 @@ def main():
     parser.add_argument('--val-bs', type = int, default = 64, help = 'val batch size')
     parser.add_argument('--train-bs', type = int, default = 64, help = 'train batch size')
     parser.add_argument('--lr', type = float, default = 0.0001, help = 'Learning Rate passed to optimizer')
+    parser.add_argument('--lrsched', type = str, default = 'step', help = 'Learning Rate scheduler choice')
     parser.add_argument('--step', type = int, default = 1)
     parser.add_argument('--gamma', type = float, default = 0.5)
     parser.add_argument('--device', type = str, default = 'cpu', help = 'Force usage of device')
@@ -110,17 +111,13 @@ def main():
     #     step_size = args.step,
     #     gamma = args.gamma
     # )
-    trainer.scheduler = optim.lr_scheduler.ReduceLROnPlateau(
+    if args.lrsched == 'step':
+        trainer.scheduler = optim.lr_scheduler.StepLR(trainer.optimizer, step_size=5, gamma=0.5)
+    else:
+        trainer.scheduler = optim.lr_scheduler.ReduceLROnPlateau(
         trainer.optimizer,
         'min',
         factor=0.5,
-        patience=3
-    )
-    
-    trainer.scheduler2 = optim.lr_scheduler.ReduceLROnPlateau(
-        trainer.optimizer,
-        'max',
-        factor=0.75,
         patience=3
     )
 
