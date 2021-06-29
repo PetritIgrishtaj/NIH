@@ -199,6 +199,7 @@ def run(device: str,
                                      final_epoch     = epochs,
                                      log_interval    = log_interval)
         print('ROC_AUC_SCORE: {}'.format(roc))
+        print(sum(list(roc.values()))/15)
         print('AVG Loss in validation set: {}'.format(avg_loss))
 
         # when using ReduceLROnPlateau
