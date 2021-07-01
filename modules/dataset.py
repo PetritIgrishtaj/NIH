@@ -70,17 +70,6 @@ class ChestXRayImages():
         self._data_test = _data.loc[test_filter].reset_index(drop=True)
         self._data_train = _data.loc[[not x for x in test_filter]].reset_index(drop=True)
         
-        ctr = 0
-        self._data_train['flag'] = self._data_train.apply(lambda x: int('none' not in x['findings']), axis=1)
-        mask = self._data_train.flag.to_list()
-        for i in range(len(mask)):
-            if mask[i]==0:
-                ctr+=1
-            if ctr%5==0:
-                mask[i]=1  
-        self._data_train['flag'] = mask
-        self._data_train = self._data_train[self._data_train['flag'] == 1][['idx', 'findings', 'patient']].copy(deep=True)
-        
 
         # perform k-fold train data split
         # self._data_train is not passed as a parameter to prevent large memory usage
