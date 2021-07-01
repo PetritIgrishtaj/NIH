@@ -84,7 +84,7 @@ class ChestXRayImages():
 
         # perform k-fold train data split
         # self._data_train is not passed as a parameter to prevent large memory usage
-        self.filters = self._kfold_split(folds, seed=seed)
+        #self.filters = self._kfold_split(folds, seed=seed)
 
 
     def _kfold_split(self, folds: int, seed: int = 0) -> List[List[bool]]:
@@ -172,11 +172,11 @@ class ChestXRayImages():
 
 
     def data_val(self, fold_id: int):
-        _data = self._data_train.loc[self.filters[fold_id]].reset_index(drop=True)
+        _data = self._data_train#.loc[self.filters[fold_id]].reset_index(drop=True)
         return _data[['idx', 'findings']]
 
     def data_train(self, fold_id: int):
-        _data = self._data_train.loc[[not x for x in self.filters[fold_id]]].reset_index(drop=True)
+        _data = self._data_train#.loc[[not x for x in self.filters[fold_id]]].reset_index(drop=True)
         return _data[['idx', 'findings']]
 
 
