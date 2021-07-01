@@ -162,11 +162,36 @@ class ChestXRayImages():
 
     def data_val(self, fold_id: int):
         _data = self._data_train.loc[self.filters[fold_id]].reset_index(drop=True)
-        return _data[['idx', 'findings']]
+        
+        ctr = 0
+        _data['flag'] = _data.apply(lambda x: int('none' not in x['findings']), axis=1)
+        mask = _data.flag.to_list()
+        for i in range(len(mask)):
+            if mask[i]==0:
+                ctr+=1
+            if ctr%5==0:
+                mask[i]=1  
+        _data['flag'] = mask
+        _data = _data[_data['flag'] == 1][['idx', 'findings']].copy(deep=True)
+        
+        
+        return _data
 
     def data_train(self, fold_id: int):
         _data = self._data_train.loc[[not x for x in self.filters[fold_id]]].reset_index(drop=True)
-        return _data[['idx', 'findings']]
+        
+        ctr = 0
+        _data['flag'] = _data.apply(lambda x: int('none' not in x['findings']), axis=1)
+        mask = _data.flag.to_list()
+        for i in range(len(mask)):
+            if mask[i]==0:
+                ctr+=1
+            if ctr%5==0:
+                mask[i]=1  
+        _data['flag'] = mask
+        _data = _data[_data['flag'] == 1][['idx', 'findings']].copy(deep=True)
+        
+        return _data
 
 
 class ChestXRayImageDataset(VisionDataset):
