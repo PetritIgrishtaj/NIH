@@ -4,7 +4,7 @@ import torch.nn.functional as F
 from torchvision import datasets, models, transforms
 
 def get_model(num_classes):
-    model = models.inception_v3(pretrained=True, progress=True)
+    model = models.inception_v3(pretrained=True, progress=True,transform_input=True)
     #model = EfficientNet.from_pretrained('efficientnet-b7', include_top=True, num_classes=num_classes)
    
     # change the last linear layer
