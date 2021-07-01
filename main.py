@@ -94,6 +94,7 @@ def main():
     # Print Network and training info
     summary(model, input_size=(args.train_bs, 3, 244, 244))
     print('Using device: {}'.format(device))
+    print(data_train)
     print('With {} Test datasets, {} val data sets and {} train datasets'.format(
         len(data_test), len(data_val), len(data_train)
     ))
