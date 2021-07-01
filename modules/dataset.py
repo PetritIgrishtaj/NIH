@@ -72,7 +72,7 @@ class ChestXRayImages():
         
         ctr = 0
         self._data_train['flag'] = self._data_train.apply(lambda x: int('none' not in x['findings']), axis=1)
-        mask = _data_train.flag.to_list()
+        mask = self._data_train.flag.to_list()
         for i in range(len(mask)):
             if mask[i]==0:
                 ctr+=1
