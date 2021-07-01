@@ -70,15 +70,15 @@ class ChestXRayImages():
         self._data_test = _data.loc[test_filter].reset_index(drop=True)
         self._data_train = _data.loc[[not x for x in test_filter]].reset_index(drop=True)
         
-        #mask = self._data_train['findings']!='none' # set all 'No Finiding' labels to 0 and rest to 1
-        #ctr = 0
-        #for i in range(mask.shape[0]):
-        #    if mask[i]==0:
-        #        ctr+=1
-        #    if ctr%5==0:
-        #        mask[i]=1  # select every 5th 'No Finding' label
+        mask = self._data_train['findings']!='none' # set all 'No Finiding' labels to 0 and rest to 1
+        ctr = 0
+        for i in range(mask.shape[0]):
+            if mask[i]==0:
+                ctr+=1
+            if ctr%5==0:
+                mask[i]=1  # select every 5th 'No Finding' label
         # No Finding class reduced to 20%
-        #self._data_train = self._data_train[mask].copy(deep=True)
+        self._data_train = self._data_train[mask].copy(deep=True)
 
         # perform k-fold train data split
         # self._data_train is not passed as a parameter to prevent large memory usage
