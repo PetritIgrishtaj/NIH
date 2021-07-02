@@ -127,8 +127,8 @@ def val_epoch(
             out = model(img)
             c_loss = criterion_v(out, target)
             loss = hamming_loss(out, target)
-            running_val_loss += loss.item()*img.shape[0]
-            val_loss_list.append(loss.item())
+            running_val_loss += c_loss.item()*img.shape[0]
+            val_loss_list.append(c_loss.item())
 
             # storing model predictions for metric evaluation
             probs[k: k + out.shape[0], :] = out.cpu()
@@ -143,7 +143,7 @@ def val_epoch(
                     str(len(loader)).zfill(3),
                     epochs_till_now,
                     final_epoch,
-                    round(loss.item(), 5),
+                    round(c_loss.item(), 5),
                     round(s, 2)
                 ))
 
