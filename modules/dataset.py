@@ -26,7 +26,7 @@ class ChestXRayImages():
     def __init__(
         self,
         root: str,
-        folds: int,
+        #folds: int,
         frac: float = 1,
         seed: int = 0,
         transform: Optional[Callable] = None,
@@ -160,7 +160,7 @@ class ChestXRayImages():
         return self._data_test[['idx', 'findings']]
 
 
-    def data_val(self, fold_id: int):
+    def data_val(self)#, fold_id: int):
         _data = self._data_train#.loc[self.filters[fold_id]].reset_index(drop=True)
         
         ctr = 0
@@ -177,7 +177,7 @@ class ChestXRayImages():
         
         return _data
 
-    def data_train(self, fold_id: int):
+    def data_train(self)#, fold_id: int):
         _data = self._data_train#.loc[[not x for x in self.filters[fold_id]]].reset_index(drop=True)
         
         ctr = 0
