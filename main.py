@@ -67,12 +67,12 @@ def main():
 
     data_train = ChestXRayImageDataset(
         args.data_path,
-        data_wrapper.data_train#(args.fold_id),
+        data_wrapper.data_train,#(args.fold_id),
         transform=transform
     )
     data_val = ChestXRayImageDataset(
         args.data_path,
-        data_wrapper.data_val#(args.fold_id),
+        data_wrapper.data_val,#(args.fold_id),
         transform=transform
     )
     data_test = ChestXRayImageDataset(
