@@ -61,7 +61,7 @@ def main():
 
 
     data_wrapper = ChestXRayImages(root  = args.data_path,
-                                   #folds = args.folds,
+                                   folds = args.folds,
                                    frac  = args.data_frac,
                                    seed  = args.seed)
 
