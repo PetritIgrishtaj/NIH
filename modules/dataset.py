@@ -85,7 +85,6 @@ class ChestXRayImages():
             [[True, True, False, False],
              [False, False, True, True]]
         For a 2-fold split of a dataset of size 4
-
         The return value must be a list of :param:folds lists.
         Where each list must be precisely len(self._data_train) items long.
         There should be roughly the same number of elements in each split.
