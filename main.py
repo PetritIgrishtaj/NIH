@@ -46,8 +46,8 @@ def main():
     parser.add_argument('--log-interval', type = int, default = 5, help = 'log every n batches')
     parser.add_argument('--save-interval', type = int, default = 5, help = 'save every n batches')
     parser.add_argument('--data-frac', type = float, default = 1, help = 'use only fraction of the data')
-    #parser.add_argument('--folds', type=int, default=5, help='how many folds to produce')
-    #parser.add_argument('--fold-id', type=int, default=0, help='Which fold id to use for test/val split')
+    parser.add_argument('--folds', type=int, default=1, help='how many folds to produce')
+    parser.add_argument('--fold-id', type=int, default=0, help='Which fold id to use for test/val split')
     parser.add_argument('--seed', type=int, default=0, help='Seed the random generator to get reproducability')
     args = parser.parse_args()
 
@@ -67,12 +67,12 @@ def main():
 
     data_train = ChestXRayImageDataset(
         args.data_path,
-        data_wrapper.data_train,#(args.fold_id),
+        data_wrapper.data_train(args.fold_id),
         transform=transform
     )
     data_val = ChestXRayImageDataset(
         args.data_path,
-        data_wrapper.data_val,#(args.fold_id),
+        data_wrapper.data_val(args.fold_id),
         transform=transform
     )
     data_test = ChestXRayImageDataset(
