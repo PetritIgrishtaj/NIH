@@ -26,7 +26,7 @@ class ChestXRayImages():
     def __init__(
         self,
         root: str,
-        #folds: int,
+        folds: int,
         frac: float = 1,
         seed: int = 0,
         transform: Optional[Callable] = None,
